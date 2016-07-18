@@ -22,7 +22,7 @@
 
     <dubbo:application name="demo-provider" owner="programmer" organization="dubbox"/>
 
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:registry address="redis://null:Um_redis_auth2016423@192.168.88.70:6379"/>
 
     <!--uncomment this if you want to test dubbo's monitor-->
     <!--<dubbo:monitor protocol="registry"/>-->

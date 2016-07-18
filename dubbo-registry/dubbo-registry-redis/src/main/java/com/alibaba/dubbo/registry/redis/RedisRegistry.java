@@ -38,6 +38,7 @@ import org.apache.commons.pool.impl.GenericObjectPool;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisPubSub;
 
 import com.alibaba.dubbo.common.Constants;
@@ -87,7 +88,7 @@ public class RedisRegistry extends FailbackRegistry {
         if (url.isAnyHost()) {
             throw new IllegalStateException("registry address == null");
         }
-        GenericObjectPool.Config config = new GenericObjectPool.Config();
+      /*  GenericObjectPool.Config config = new GenericObjectPool.Config();
         config.testOnBorrow = url.getParameter("test.on.borrow", true);
         config.testOnReturn = url.getParameter("test.on.return", false);
         config.testWhileIdle = url.getParameter("test.while.idle", false);
@@ -105,6 +106,13 @@ public class RedisRegistry extends FailbackRegistry {
             config.timeBetweenEvictionRunsMillis = url.getParameter("time.between.eviction.runs.millis", 0);
         if (url.getParameter("min.evictable.idle.time.millis", 0) > 0)
             config.minEvictableIdleTimeMillis = url.getParameter("min.evictable.idle.time.millis", 0);
+*/
+
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxTotal(500);
+        config.setMaxIdle(100);
+        config.setMaxWaitMillis(100000L);
+        config.setTestOnBorrow(true);
 
         String cluster = url.getParameter("cluster", "failover");
         if (! "failover".equals(cluster) && ! "replicate".equals(cluster)) {
